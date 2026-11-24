@@ -1,0 +1,31 @@
+{
+  "source": "2026-11-24 console SUMMARY output copied from the recorded benchmark",
+  "hardware": "Two Cambricon MLU580 devices, one per node, CNCL SOCKET",
+  "workload": {
+    "model": "4-layer GPT, FP16",
+    "global_batch_size": 8,
+    "sequence_length": 256,
+    "warmup_steps_per_repeat": 2,
+    "measured_steps_per_repeat": 5,
+    "repeats_per_plan": 3
+  },
+  "manual": {
+    "tp_pp_dp": [2, 1, 1],
+    "stage_layers": [4],
+    "measured_steps": 15,
+    "step_ms": 2870.673910776774,
+    "forward_backward_ms": 2741.565148035685,
+    "tokens_per_second": 713.421330201114,
+    "tokens_per_second_by_repeat": [705.644874374294, 720.5868302501265, 714.1900662971308]
+  },
+  "tuned": {
+    "tp_pp_dp": [1, 2, 1],
+    "stage_layers": [3, 1],
+    "measured_steps": 15,
+    "step_ms": 519.6783264478048,
+    "forward_backward_ms": 369.5726712544759,
+    "tokens_per_second": 3940.899390588105,
+    "tokens_per_second_by_repeat": [3941.862541938823, 3940.9401315022365, 3939.89598962318]
+  },
+  "throughput_change_percent": 452.39
+}
