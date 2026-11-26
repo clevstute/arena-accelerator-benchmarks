@@ -1,0 +1,106 @@
+{
+  "source": "TEST5_MR_4L_VOCAB_COMPARISON console output, 2026-11-26. profile_source uses ~ for the original home directory; manual comparison fields are derived from measured_layouts.",
+  "hardware": "Two Iluvatar MR-V100 GPUs on one host, CoreX 5.0.0",
+  "num_layers": 4,
+  "sequence_length": 256,
+  "global_batch_size": 8,
+  "transport": "native_nccl",
+  "profile_source": "~/arena-iluvatar-test5.qaOduk/mr-v100-dual-profile.pkl",
+  "vocab_communication_profile": {
+    "tp_degree": 2,
+    "sequence_length": 256,
+    "micro_batch_size": 2,
+    "tensor_shape": [256, 2],
+    "dtype": "float32",
+    "reductions": ["max", "sum", "sum"],
+    "transport": "native_nccl",
+    "warmup_samples": 10,
+    "timed_samples": 50,
+    "per_microbatch_ms": 0.3025773513317108
+  },
+  "rounds": 2,
+  "warmup_steps_per_run": 2,
+  "timed_steps_per_run": 5,
+  "candidate_scores": [
+    {
+      "case": "tp2",
+      "tp_pp_dp": [2, 1, 1],
+      "stage_layers": [4],
+      "partition_method": "auto",
+      "estimated_before_vocab_ms": 104.90760979482106,
+      "estimated_forward_backward_ms": 106.1179192001479,
+      "vocab_added_to_estimate_ms": 1.2103094053268393
+    },
+    {
+      "case": "pp2_auto",
+      "tp_pp_dp": [1, 2, 1],
+      "stage_layers": [3, 1],
+      "partition_method": "auto",
+      "estimated_before_vocab_ms": 106.68079999727864,
+      "estimated_forward_backward_ms": 106.68079999727864,
+      "vocab_added_to_estimate_ms": 0.0
+    },
+    {
+      "case": "pp2_uniform",
+      "tp_pp_dp": [1, 2, 1],
+      "stage_layers": [2, 2],
+      "partition_method": "uniform",
+      "estimated_before_vocab_ms": 128.11033566083228,
+      "estimated_forward_backward_ms": 128.11033566083228,
+      "vocab_added_to_estimate_ms": 0.0
+    }
+  ],
+  "arena_selected_before_vocab": {
+    "case": "tp2",
+    "tp_pp_dp": [2, 1, 1],
+    "stage_layers": [4],
+    "partition_method": "auto",
+    "estimated_before_vocab_ms": 104.90760979482106,
+    "estimated_forward_backward_ms": 106.1179192001479,
+    "vocab_added_to_estimate_ms": 1.2103094053268393
+  },
+  "arena_selected": {
+    "case": "tp2",
+    "tp_pp_dp": [2, 1, 1],
+    "stage_layers": [4],
+    "partition_method": "auto",
+    "estimated_before_vocab_ms": 104.90760979482106,
+    "estimated_forward_backward_ms": 106.1179192001479,
+    "vocab_added_to_estimate_ms": 1.2103094053268393
+  },
+  "fastest_measured_layout": "tp2",
+  "measured_layouts": {
+    "tp2": {
+      "tp_pp_dp": [2, 1, 1],
+      "stage_layers": [4],
+      "step_ms": 559.2274725437164,
+      "forward_backward_ms": 470.2449321746826,
+      "tokens_per_second": 3662.1949037739773,
+      "round_tokens_per_second": [3663.286633678356, 3661.103824388768],
+      "verified_optimizer_updates_per_rank_per_run": 7
+    },
+    "pp2_uniform": {
+      "tp_pp_dp": [1, 2, 1],
+      "stage_layers": [2, 2],
+      "step_ms": 609.4503283500671,
+      "forward_backward_ms": 534.227991104126,
+      "tokens_per_second": 3360.4051138087702,
+      "round_tokens_per_second": [3359.6403225380955, 3361.170253354148],
+      "verified_optimizer_updates_per_rank_per_run": 7
+    },
+    "pp2_auto": {
+      "tp_pp_dp": [1, 2, 1],
+      "stage_layers": [3, 1],
+      "step_ms": 615.9468948841095,
+      "forward_backward_ms": 516.7771100997925,
+      "tokens_per_second": 3324.961968328993,
+      "round_tokens_per_second": [3329.346843065255, 3320.5886284900057],
+      "verified_optimizer_updates_per_rank_per_run": 7
+    }
+  },
+  "manual_layout": "pp2_uniform",
+  "arena_vs_manual_throughput_pct": 8.980756181005534,
+  "arena_vs_manual_step_time_reduction_pct": 8.240680736413154,
+  "arena_vs_tp2_throughput_pct": null,
+  "runtime_failures": []
+}
